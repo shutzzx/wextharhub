@@ -52,7 +52,7 @@ local AutoFarm = Farm.Toggle({
         
                             local PRoot = game.Players.LocalPlayer.Character.HumanoidRootPart
                             local To = {}
-                            To.CFrame = gb:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0, 2.75, -1.5)
+                            To.CFrame = gb:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0, 1.75, -1.5)
                             local TS = TweenInfo.new(1.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
                             local Start = TweenSistem:Create(PRoot, TS, To)
         
