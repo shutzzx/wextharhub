@@ -33,7 +33,7 @@ local NPCFarm = Farm.Dropdown({
         "EnragedGhost",
         "Crusher",
         "Cult",
-        ""
+        "Dimple"
         }
 })
 
@@ -42,7 +42,7 @@ local AutoFarm = Farm.Toggle({
     Text = "AutoFarm",
     Callback = function(Enabled)
         AutoFarmState = Enabled
-        while AutoFarmState do wait(1.2)
+        while AutoFarmState do wait(0.5)
             pcall(function()
                 if Enabled == true then
                     for i,gb in next, workspace:GetDescendants() do
@@ -51,7 +51,7 @@ local AutoFarm = Farm.Toggle({
         
                             local PRoot = game.Players.LocalPlayer.Character.HumanoidRootPart
                             local To = {}
-                            To.CFrame = gb:FindFirstChild("HumanoidRootPart").CFrame
+                            To.CFrame = gb:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0, 4.5, 0)
                             local TS = TweenInfo.new(1.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
                             local Start = TweenSistem:Create(PRoot, TS, To)
         
@@ -128,19 +128,15 @@ local AutoEquip = WeaponPage.Toggle({
     Callback = function(State)
         EquipState = State
         pcall(function()
-            while EquipState do wait(0.5)
+            game:GetService("RunService").Stepped:Connect(function()
                 if EquipState == true then
                     local Plr = game:GetService("Players").LocalPlayer
-                    for _, GetWeapons in pairs(Plr.Backpack:GetChildren()) do
-                        if GetWeapons:IsA("Tool") and GetWeapons.Name == Weapon then
-                            local FindGetWeapon = Plr.Backpack:FindFirstChild(Weapon)
-                            if FindGetWeapon then
-                                Plr.Character.Humanoid:EquipTool(GetWeapons)
-                            end
-                        end
+                    local WeaponSelected = Plr.Backpack:FindFirstChild(Weapon)
+                    if WeaponSelected then
+                        Plr.Character.Humanoid:EquipTool(WeaponSelected)    
                     end
                 end
-            end
+            end)
         end)
     end,
     Enabled = false
@@ -169,10 +165,10 @@ local WeaponName = QuestPage.Dropdown({
     {
         "Reigen",    
         "Shiro",
-        "Kaito",
         "Couple",
         "Mezato",
-        ""
+        "Hitoshi",
+        "Stranger"
     }
 })
 
@@ -227,6 +223,22 @@ local HideOverHead = Misc.Toggle({
                 end
             end)
         end
+    end,
+    Enabled = false
+})
+
+local NoClipState;
+local NoClip = Misc.Toggle({
+    Text = "No-Clip",
+    Callback = function(Enabled)
+        NoClipState = Enabled
+        pcall(function()
+            game:GetService("RunService").Stepped:Connect(function()
+                if NoClipState == true then
+                    game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+                end
+            end)
+        end)
     end,
     Enabled = false
 })
