@@ -33,7 +33,8 @@ local NPCFarm = Farm.Dropdown({
         "EnragedGhost",
         "Crusher",
         "Cult",
-        "Dimple"
+        "Dimple",
+        "Delin"
         }
 })
 
@@ -167,8 +168,8 @@ local WeaponName = QuestPage.Dropdown({
         "Shiro",
         "Couple",
         "Mezato",
-        "Hitoshi",
-        "Stranger"
+        "Stranger",
+        "Hitoshi"
     }
 })
 
